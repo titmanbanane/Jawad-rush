@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1jdqprewke6s"]
+
+[ext_resource type="Script" uid="uid://c0hu2mrtheih5" path="res://obstacle/obstacle.gd" id="1_utmkd"]
+[ext_resource type="Texture2D" uid="uid://7sfqbr3wdmgq" path="res://obstacle/wooden-picnic-table-providing-a-place-to-eat-outdoors-vector-removebg-preview.png" id="2_qlgnj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eo1ju"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_utmkd"]
+size = Vector3(20, 20, 1)
+
+[node name="obstacle" type="Area2D"]
+scale = Vector2(2.26038, 2.26038)
+script = ExtResource("1_utmkd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_eo1ju")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
+position = Vector2(0, -10)
+mesh = SubResource("BoxMesh_utmkd")
+
+[node name="Wooden-picnic-table-providing-a-place-to-eat-outdoors-vector-removebg-preview" type="Sprite2D" parent="."]
+position = Vector2(0, -9.51167)
+scale = Vector2(0.0666028, 0.0911351)
+texture = ExtResource("2_qlgnj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

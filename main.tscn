@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=3 uid="uid://dkc5a3fx7c20j"]
+
+[ext_resource type="Texture2D" uid="uid://bvaiqddx7x1io" path="res://825_585_epitech-03.jpg" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://cfknf0fllgicn" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://blxafjpex5vok" path="res://player/player.tscn" id="1_ig7tw"]
+[ext_resource type="Shader" uid="uid://c6jyhikwg2r2a" path="res://main.tres" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bxtu5aw6m1xle" path="res://20b57fab68dbd95d5c1f38103eff44d0.jpg" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://cypxwpnexevp3" path="res://ennemy/boss1.tscn" id="6_7mycd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lquwl"]
+shader = ExtResource("2_1bvp3")
+shader_parameter/speed = 8.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mycd"]
+shader = ExtResource("2_1bvp3")
+shader_parameter/speed = 6.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h2yge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(20, 464)
+
+[sub_resource type="Curve2D" id="Curve2D_7mycd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 300, -180, 0, 0, 0, 0, 300, 40, 0, 0, 0, 0, 300, -180)
+}
+point_count = 3
+
+[node name="main" type="Node2D" groups=["main"]]
+script = ExtResource("1_h2yge")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_lquwl")
+offset_left = -790.0
+offset_top = -735.0
+offset_right = 838.0
+offset_bottom = 45.0
+texture = ExtResource("1_0xm2m")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_7mycd")
+offset_left = -1022.0
+offset_top = 39.0
+offset_right = 1229.0
+offset_bottom = 819.0
+texture = ExtResource("4_lquwl")
+
+[node name="player" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(0, -17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(266, -195)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-382, -106)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 40)
+shape = SubResource("WorldBoundaryShape2D_h2yge")
+
+[node name="Area2D" type="Area2D" parent="." groups=["killzone"]]
+position = Vector2(-469, -111)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="spawner" type="Node2D" parent="."]
+position = Vector2(650, 40)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="ennemy" parent="." node_paths=PackedStringArray("curvepoint") instance=ExtResource("6_7mycd")]
+position = Vector2(300, -75)
+curvepoint = NodePath("../Path2D/PathFollow2D")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7mycd")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(300, -31.8406)
+rotation = 1.5708
+progress = 148.15
+
+[node name="boss_timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="boss_timer2" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="boss_dead" from="ennemy" to="." method="_on_ennemy_boss_dead"]
+[connection signal="timeout" from="boss_timer" to="." method="_on_boss_timer_timeout"]
+[connection signal="timeout" from="boss_timer2" to="." method="_on_boss_timer_2_timeout"]
