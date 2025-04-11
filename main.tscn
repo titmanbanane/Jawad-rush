@@ -58,7 +58,7 @@ rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_h2yge")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-382, -106)
+position = Vector2(-340, -106)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_h2yge")
 
@@ -93,11 +93,8 @@ progress = 148.15
 
 [node name="boss_timer" type="Timer" parent="."]
 wait_time = 10.0
-
-[node name="boss_timer2" type="Timer" parent="."]
-wait_time = 10.0
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="boss_dead" from="ennemy" to="." method="_on_ennemy_boss_dead"]
 [connection signal="timeout" from="boss_timer" to="." method="_on_boss_timer_timeout"]
-[connection signal="timeout" from="boss_timer2" to="." method="_on_boss_timer_2_timeout"]

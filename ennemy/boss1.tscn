@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cypxwpnexevp3"]
+[gd_scene load_steps=5 format=3 uid="uid://cypxwpnexevp3"]
 
 [ext_resource type="Script" uid="uid://wvr3phd8f3v3" path="res://ennemy/ennemy.gd" id="1_4flfs"]
+[ext_resource type="Texture2D" uid="uid://tkeklewjlomn" path="res://ennemy/github.webp" id="2_wxhy2"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_qajmr"]
 radius = 20.0
@@ -29,6 +30,10 @@ shape = SubResource("RectangleShape2D_4flfs")
 target_position = Vector2(0, 225)
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="Github" type="Sprite2D" parent="."]
+scale = Vector2(0.0517883, 0.0517883)
+texture = ExtResource("2_wxhy2")
 
 [connection signal="timeout" from="death" to="." method="_on_death_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj0c24qqlqiai"]
+
+[ext_resource type="Script" uid="uid://dqmbuh81sguhr" path="res://ennemy/boss_4.gd" id="1_adxvc"]
+[ext_resource type="Texture2D" uid="uid://dw0ueu1owkmio" path="res://ennemy/React_Logo_SVG.svg.png" id="2_adxvc"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qajmr"]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4flfs"]
+size = Vector2(75, 50)
+
+[node name="ennemy" type="Node2D"]
+script = ExtResource("1_adxvc")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_qajmr")
+
+[node name="death" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="RayCast2D" type="ShapeCast2D" parent="."]
+position = Vector2(46, 0)
+shape = SubResource("RectangleShape2D_4flfs")
+target_position = Vector2(0, 225)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Php" type="Sprite2D" parent="."]
+top_level = true
+scale = Vector2(0.034794, 0.034794)
+texture = ExtResource("2_adxvc")
+
+[connection signal="timeout" from="death" to="." method="_on_death_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

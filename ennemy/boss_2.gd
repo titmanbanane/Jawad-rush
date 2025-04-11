@@ -6,16 +6,16 @@ extends Node2D
 var curpoint = 1
 var speed = 2
 
-signal boss_2_dead
+signal boss_dead
 
-# Called when the node enters the scene tree for the first time.
+#BOss2 Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$RayCast2D.top_level = true
 	curvepoint = get_parent()
-	get_tree().get_first_node_in_group("main").bosstimer2.start
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	$Html5.global_position = global_position
 	$RayCast2D.global_position = Vector2(global_position.x + 20,global_position.y)
 	curvepoint.progress += speed
 
@@ -30,6 +30,6 @@ func _on_timer_timeout() -> void:
 		spawn_block()
 	$Timer.wait_time = randf_range(0.1,1.0)
 
-func _on_death_timeout() -> void:
-	emit_signal("boss_2_dead")
+func _on_death_2_timeout() -> void:
+	emit_signal("boss_dead")
 	queue_free()

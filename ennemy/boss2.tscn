@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkoday37ikam3"]
+[gd_scene load_steps=5 format=3 uid="uid://dkoday37ikam3"]
 
 [ext_resource type="Script" uid="uid://cpcqih0ulqu6j" path="res://ennemy/boss_2.gd" id="1_iwu4y"]
+[ext_resource type="Texture2D" uid="uid://x67sqwrjo027" path="res://ennemy/HTML5.png" id="2_nuqsp"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_qajmr"]
 radius = 20.0
@@ -13,9 +14,10 @@ size = Vector2(150, 50)
 script = ExtResource("1_iwu4y")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_qajmr")
 
-[node name="death" type="Timer" parent="."]
+[node name="death2" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
 autostart = true
@@ -30,5 +32,11 @@ target_position = Vector2(0, 225)
 collide_with_areas = true
 collide_with_bodies = false
 
-[connection signal="timeout" from="death" to="." method="_on_death_timeout"]
+[node name="Html5" type="Sprite2D" parent="."]
+top_level = true
+position = Vector2(0, -2.38419e-07)
+scale = Vector2(0.093857, 0.093857)
+texture = ExtResource("2_nuqsp")
+
+[connection signal="timeout" from="death2" to="." method="_on_death_2_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
